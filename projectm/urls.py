@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^$', include('polls.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^polls/', include('polls.urls', namespace="polls")),
+    url(r'^(?i)admin/', include(admin.site.urls)),
+    url(r'^(?i)polls/', include('polls.urls', namespace="polls")),
+##    url(r'^(?i)accounts/', include('userena.urls')),
 )

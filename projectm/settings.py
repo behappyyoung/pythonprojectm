@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'polls',                               ############ new poll app
+    'polls',                               ############ new poll app
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,9 +63,9 @@ DATABASES = {
 ##        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     'ENGINE': 'django.db.backends.mysql',
        'NAME': 'projectm',
-       'USER': 'projectm',
-       'PASSWORD': 'projectm',
-       'HOST': 'localhost',
+       'USER': 'hondasvl',
+       'PASSWORD': 'hondasvldb',
+       'HOST': 'hondasvl.cuylhbuv5gpu.us-west-2.rds.amazonaws.com',
        'PORT': '3306'
     }
 }
@@ -90,3 +90,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'polls/templates')]
+
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'behappytester@gmail.com'
+EMAIL_HOST_PASSWORD = 'young12345'
+
+ANONYMOUS_USER_ID = -1
+
+AUTH_PROFILE_MODULE = 'accounts.MyProfile'
