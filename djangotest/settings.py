@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'accounts',
     'sitetree',
     'django_messages',
+    'twitter_bootstrap',
 )
 
 AUTHENTICATION_BACKENDS = (
