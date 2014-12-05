@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'accounts',
     'sitetree',
     'django_messages',
-    'pipeline',
     'twitter_bootstrap',
 )
 
