@@ -11,7 +11,7 @@ import os
 import sys
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangotest.settings")
 
-path = '/var/www/heroku/djangotest'
+path = '/var/www/pythonprojectm'
 if path not in sys.path:
     sys.path.append(path)
 
