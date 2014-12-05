@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.views.generic.base import RedirectView
 
-
+from djangotest import views
 
 
 urlpatterns = patterns('',
@@ -11,8 +11,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'hellodjango.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     ##url(r'^$', include('polls.urls')),
-    url(r'^$', RedirectView.as_view(url='/Messages/')),
-
+    ##url(r'^$', RedirectView.as_view(url='/accounts/')),
+    url(r'^$', views.IndexView, name='home'),
     url(r'^static/(.*)$', 'django.views.static.serve', { 'document_root': settings.STATIC_ROOT }),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^(?i)polls/', include('polls.urls', namespace="polls")),
