@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'accounts',
     'sitetree',
     'django_messages',
+    'pipeline',
     'twitter_bootstrap',
 )
 
@@ -80,6 +81,53 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+my_app_less = os.path.join(BASE_DIR, 'my_app', 'static', 'less')
+
+# For apps outside of your project, it's simpler to import them to find their root folders
+import twitter_bootstrap
+bootstrap_less = os.path.join(os.path.dirname(twitter_bootstrap.__file__), 'static', 'less')
+
+PIPELINE_LESS_ARGUMENTS = u'--include-path={}'.format(os.pathsep.join([bootstrap_less, my_app_less]))
+
+
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
+## pipe line
+PIPELINE_CSS = {
+    'bootstrap': {
+        'source_filenames': (
+            'twitter_bootstrap/less/bootstrap.less',
+        ),
+        'output_filename': 'css/b.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },
+}
+
+PIPELINE_JS = {
+    'bootstrap': {
+        'source_filenames': (
+          'twitter_bootstrap/js/transition.js',
+          'twitter_bootstrap/js/modal.js',
+          'twitter_bootstrap/js/dropdown.js',
+          'twitter_bootstrap/js/scrollspy.js',
+          'twitter_bootstrap/js/tab.js',
+          'twitter_bootstrap/js/tooltip.js',
+          'twitter_bootstrap/js/popover.js',
+          'twitter_bootstrap/js/alert.js',
+          'twitter_bootstrap/js/button.js',
+          'twitter_bootstrap/js/collapse.js',
+          'twitter_bootstrap/js/carousel.js',
+          'twitter_bootstrap/js/affix.js',
+        ),
+        'output_filename': 'js/b.js',
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -121,6 +169,12 @@ ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 STATICFILES_DIRS = (    os.path.join(BASE_DIR, 'static'),)
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
