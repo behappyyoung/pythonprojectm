@@ -10,7 +10,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>{% block title %} django ProjectM {% endblock %}</title>
    <script type="text/javascript" src="{% static 'twitter_bootstrap/js/transition.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'twitter_bootstrap/less/bootstrap.less' %}" />
+{% comment "less is not working with pipeline" %}
   {% stylesheet 'bootstrap' %}
+{% endcomment %}
+
+
+
   {% block meta %}{% endblock %}
 </head>
 

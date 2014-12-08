@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'sitetree',
     'django_messages',
     'pipeline',
+    'less',
     'twitter_bootstrap',
 )
 
@@ -146,9 +147,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
+
 ##STATIC_ROOT = (os.path.join(os.path.dirname(__file__), '..', 'djangotest/static'))
-STATIC_ROOT = 'staticfiles'
+##STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+##STATICFILES_DIRS = ( os.path.join(BASE_DIR, "staticfiles"),    STATIC_URL,)
+
+# Static asset configuration
+STATIC_URL = '/static/'
+##STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+##STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+##STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 ##TEMPLATE_DIRS = 'templates'
@@ -167,14 +183,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-# Static asset configuration
-STATICFILES_DIRS = (    os.path.join(BASE_DIR, 'static'),)
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
