@@ -4,18 +4,11 @@
 <html lang="en">
 {% load pipeline %}
 
-{% load staticfiles %}
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>{% block title %} django ProjectM {% endblock %}</title>
-   <script type="text/javascript" src="{% static 'twitter_bootstrap/js/transition.js' %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static 'twitter_bootstrap/less/bootstrap.less' %}" />
-{% comment "less is not working with pipeline" %}
+
   {% stylesheet 'bootstrap' %}
-{% endcomment %}
-
-
 
   {% block meta %}{% endblock %}
 </head>
@@ -26,6 +19,10 @@
 {% load sitetree %}
 {% sitetree_menu from "maintree" include "trunk" %}
 {% sitetree_breadcrumbs from "maintree"  %}
+
+<button type="button" class="btn btn-primary" >
+        Single Toggle test
+    </button>
 
 {% if user.is_authenticated %}
     <!-- message -->
