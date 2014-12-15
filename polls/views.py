@@ -33,7 +33,8 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
-    model = Question
+    ##model = Question
+    ##model = get_object_or_404(Question)
     template_name = 'polls/detail.html'
 
     def get_queryset(self):

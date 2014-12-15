@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'pipeline',
     'less',
     'twitter_bootstrap',
+    'djangular',
 )
 
 AUTHENTICATION_BACKENDS = (
