@@ -8,9 +8,14 @@
 {% block content %}
 
 
-
 <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
 
     This is Main Page..
+
+    {% if user.is_authenticated %}
+        logged in
+    {% else %}
+        guest
+    {% endif %}        
 
 {% endblock %}

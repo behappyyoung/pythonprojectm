@@ -3,26 +3,31 @@
 
 <html lang="en">
 {% load pipeline %}
+{% load staticfiles %}
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>{% block title %} django ProjectM {% endblock %}</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  {% javascript 'bootstrap' %}
 
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
   {% stylesheet 'bootstrap' %}
+
 
   {% block meta %}{% endblock %}
 </head>
 
 <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
 
+<header>
+
+
 <!-- site tree -->
 {% load sitetree %}
 {% sitetree_menu from "maintree" include "trunk" %}
 {% sitetree_breadcrumbs from "maintree"  %}
 
-<button type="button" class="btn btn-primary" >
-        Single Toggle test
-    </button>
 
 {% if user.is_authenticated %}
     <!-- message -->
@@ -35,6 +40,7 @@
     {% endif %}
 
 {% endif %}0
+</header>
 
   <div id="body">
 
