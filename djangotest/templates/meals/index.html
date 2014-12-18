@@ -1,0 +1,20 @@
+{% extends 'meals/meal_base.html' %}
+
+{% block meal-content %}
+    {% if latest_meal_list %}
+        <ul>
+        {% for meal in latest_meal_list %}
+            <li>{{ question.meal_title }} <a href="{%  url 'meals:detail'  meal.id %}"> vote </a> </li>
+
+                <ul>
+                {% for dish in meal.dish_set.all %}
+                    <li>{{ dish.dish_title }} -- {{ dish.votes }} vote{{ dish.votes|pluralize }}</li>
+                {% endfor %}
+                </ul>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No meals are available.</p>
+    {% endif %}
+{% endblock %}

@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^static/(.*)$', 'django.views.static.serve', { 'document_root': settings.STATIC_ROOT }),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^(?i)polls/', include('polls.urls', namespace="polls")),
+    url(r'^(?i)meals/', include('meals.urls', namespace="meals")),
     url(r'^(?i)accounts/', include('accounts.urls')),
     ## Added  for mugshots url
     url(r'^(?i)accounts/[\.\w-]+/(mugshots/.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
