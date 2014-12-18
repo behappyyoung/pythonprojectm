@@ -14,6 +14,22 @@
 
     {% if user.is_authenticated %}
         logged in
+            {% if meal_list %}
+        <ul>
+        {% for meal in meal_list %}
+            <li>{{ meal.meal_title }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
+
+                <ul>
+                {% for dish in meal.dish_set.all %}
+                    <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
+                {% endfor %}
+                </ul>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No meals are available.</p>
+    {% endif %}
     {% else %}
         guest
     {% endif %}        

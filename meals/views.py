@@ -31,3 +31,13 @@ class IndexView(generic.ListView):
         ##return Question.objects.order_by('-pub_date')[:5]
         return Meal.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
+class DetailView(generic.DetailView):
+    ##model = Question
+    ##model = get_object_or_404(Question)
+    template_name = 'meals/detail.html'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        ##return Question.objects.order_by('-pub_date')[:5]
+        return Meal.objects.filter(pub_date__lte=timezone.now())
+

@@ -4,11 +4,11 @@
     {% if latest_meal_list %}
         <ul>
         {% for meal in latest_meal_list %}
-            <li>{{ question.meal_title }} <a href="{%  url 'meals:detail'  meal.id %}"> vote </a> </li>
+            <li>{{ meal.meal_title }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
 
                 <ul>
                 {% for dish in meal.dish_set.all %}
-                    <li>{{ dish.dish_title }} -- {{ dish.votes }} vote{{ dish.votes|pluralize }}</li>
+                    <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
                 {% endfor %}
                 </ul>
 

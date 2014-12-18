@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'djangotest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'projectm',
+        'USER': 'projectm',
+        'PASSWORD': 'projectm',
+        'HOST': '162.253.154.109',
+        'PORT': '3306'
     }
 }
 
@@ -168,8 +172,7 @@ STATICFILES_FINDERS = (
 
 
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
-##TEMPLATE_DIRS = 'templates'
+
 
 ##MEDIA_ROOT = BASE_DIR
 MEDIA_ROOT = ''
@@ -198,6 +201,10 @@ EMAIL_HOST_PASSWORD = 'yourgmailpassword'
 USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
+TEMPLATE_LOADERS =('django.template.loaders.filesystem.Loader',
+ 'django.template.loaders.app_directories.Loader')
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 "django.contrib.auth.context_processors.auth",

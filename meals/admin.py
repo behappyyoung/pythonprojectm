@@ -11,10 +11,11 @@ class MealAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['meal_title']}),
         (None,               {'fields': ['meal_desc']}),
+        (None,               {'fields': ['photo']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     inlines = [DishInline]
-    list_display = ('meal_title', 'meal_desc', 'pub_date', 'was_published_recently')
+    list_display = ('meal_title', 'meal_desc','photo', 'pub_date', 'was_published_recently')
     list_filter = ['pub_date']
     search_fields = ['meal_title']
 

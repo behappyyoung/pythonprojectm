@@ -10,6 +10,7 @@ class Meal(models.Model):
     meal_title = models.CharField(max_length=200)
     meal_desc = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+    photo = models.ImageField(upload_to='meals/Images', default = 'meals/Images/no-img.jpg')
     def __str__(self):              # __unicode__ on Python 2
         return self.meal_title
     def was_published_recently(self):
@@ -27,5 +28,5 @@ class Dish(models.Model):
     votes = models.IntegerField(default=0)
     votes_name = models.CharField(max_length=200,  blank=True)
     def __str__(self):              # __unicode__ on Python 2
-        return self.choice_title
+        return self.dish_title
 
