@@ -77,15 +77,21 @@ WSGI_APPLICATION = 'djangotest.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+## use sqllite3 for now...
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'projectm',
-        'USER': 'projectm',
-        'PASSWORD': 'projectm',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+## for mysql usage later.. ( on production )
+##        'ENGINE': 'django.db.backends.mysql',
+##        'NAME': 'projectm',
+##        'USER': 'projectm',
+##        'PASSWORD': 'projectm',
+##        'HOST': 'localhost',
+##        'PORT': '3306'
+
     }
 }
 
