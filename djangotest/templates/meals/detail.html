@@ -1,17 +1,21 @@
 {% extends 'meals/meal_base.html' %}
 
+{% block content_title %}<h1>{{ meal.meal_title }}</h1>{% endblock %}
 {% block meal-content %}
 
-<h1>{{ meal.meal_title }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'polls:vote' meal.id %}" method="post">
-{% csrf_token %}
+
 {% for dish in meal.dish_set.all %}
-    <input type="radio" name="dish" id="dish{{ forloop.counter }}" value="{{ dish.id }}" />
-    <label for="dish{{ forloop.counter }}">{{ dish.dish_title}}</label><br />
+    <li>
+        <a href="{%  url 'meals:dish'  meal.id %}">{{ dish.dish_title}}</a><br />
+        {{ dish.dish_desc }} <br />
+            {{ dish.photo }}
+
+    </li>
+
+
 {% endfor %}
-<input type="submit" value="Vote" />
-</form>
+
 {% endblock %}

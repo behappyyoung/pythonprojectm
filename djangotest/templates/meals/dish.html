@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {{ dish }}
+
+<h1>{{ dish.dish_title }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+    {{ dish.dish_title}}
+
+{% endblock %}

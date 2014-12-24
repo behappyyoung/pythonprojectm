@@ -181,7 +181,8 @@ STATICFILES_FINDERS = (
 
 
 ##MEDIA_ROOT = BASE_DIR
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/var/www/pythonprojectm/'
+MEDIA_URL='http://127.0.0.1:8000/'
 ############# addded for heroku ###########################
 
 # Parse database configuration from $DATABASE_URL

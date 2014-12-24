@@ -4,14 +4,15 @@
     {% if latest_meal_list %}
         <ul>
         {% for meal in latest_meal_list %}
-            <li>{{ meal.meal_title }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
+            <li>{{ meal.meal_title }} :: <br />
+                <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a>
 
                 <ul>
                 {% for dish in meal.dish_set.all %}
                     <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
                 {% endfor %}
                 </ul>
-
+            </li>
         {% endfor %}
         </ul>
     {% else %}
