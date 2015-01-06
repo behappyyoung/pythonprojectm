@@ -11,4 +11,12 @@
 
     {{ dish.dish_title}}
 
+    {% if dish.photo %}
+        <dd> <img src="/images/{{ dish.photo }}" width="200px"/></dd>
+    {% endif %}
+    <dt> Desc </dt>
+    <dd> {{ dish.dish_desc}} </dd>
+    <dt> Owner </dt>
+    <dd>{{ dish.owner}}</dd>
+
 {% endblock %}

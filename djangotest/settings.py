@@ -59,6 +59,11 @@ AUTHENTICATION_BACKENDS = (
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -178,11 +183,9 @@ STATICFILES_FINDERS = (
 
 
 
-
-
 ##MEDIA_ROOT = BASE_DIR
-MEDIA_ROOT = '/var/www/pythonprojectm/'
-MEDIA_URL='http://127.0.0.1:8000/'
+MEDIA_ROOT = '/var/www/pythonprojectm/images/'
+MEDIA_URL='http://127.0.0.1:8000/images/'
 ############# addded for heroku ###########################
 
 # Parse database configuration from $DATABASE_URL
@@ -204,10 +207,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yourgmailaccount@gmail.com'
 EMAIL_HOST_PASSWORD = 'yourgmailpassword'
 
-
-USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
-LOGIN_URL = '/accounts/signin/'
-LOGOUT_URL = '/accounts/signout/'
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 TEMPLATE_LOADERS =('django.template.loaders.filesystem.Loader',

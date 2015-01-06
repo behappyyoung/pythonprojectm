@@ -50,3 +50,9 @@ class DishView(generic.DetailView):
         return Dish.objects.filter()
 
 
+class DishListView(generic.ListView):
+    template_name = 'meals/dish_list.html'
+    context_object_name = 'latest_dish_list'
+    def get_queryset(self):
+        return Dish.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+

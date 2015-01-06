@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('mugshot', easy_thumbnails.fields.ThumbnailerImageField(help_text='A personal image displayed in your profile.', upload_to=userena.models.upload_to_mugshot, verbose_name='mugshot', blank=True)),
                 ('privacy', models.CharField(default=b'registered', help_text='Designates who can view your profile.', max_length=15, verbose_name='privacy', choices=[(b'open', 'Open'), (b'registered', 'Registered'), (b'closed', 'Closed')])),
-                ('favourite_snack', models.CharField(max_length=5, verbose_name='favourite snack')),
+                ('usertype', models.CharField(default=b'member', help_text='Choose User Type.', max_length=15, verbose_name='usertype', choices=[(b'member', 'Member'), (b'chef', 'Chef'), (b'Mighty', 'Both')])),
                 ('user', models.OneToOneField(related_name='my_profile', verbose_name='user', to=settings.AUTH_USER_MODEL)),
             ],
             options={

@@ -1,0 +1,17 @@
+{% extends 'meals/meal_base.html' %}
+
+{% block content_title %}<h2>Available Dishes</h2>{% endblock %}
+
+{% block meal-content %}
+    {% if latest_dish_list %}
+        <ul>
+        {% for dish in latest_dish_list %}
+            <li>{{ dish.dish_title }} :: <br />
+                <a href="{%  url 'meals:dish'  dish.id %}"> {{ dish.dish_desc }}  </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No dishs are available.</p>
+    {% endif %}
+{% endblock %}

@@ -3,8 +3,15 @@
 {% block content_title %}<h1>{{ meal.meal_title }}</h1>{% endblock %}
 {% block meal-content %}
 
-
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    {% if meal.photo %}
+        <dd> <img src="/images/{{ meal.photo }}" width="200px"/></dd>
+    {% endif %}
+    <dt> Desc </dt>
+    <dd> {{ meal.meal_desc}} </dd>
+    <dt> Owner </dt>
+    <dd>{{ meal.owner}}</dd>
 
 
 {% for dish in meal.dish_set.all %}
@@ -14,8 +21,7 @@
             {{ dish.photo }}
 
     </li>
-
-
 {% endfor %}
+
 
 {% endblock %}
