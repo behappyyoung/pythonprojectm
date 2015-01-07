@@ -3,6 +3,8 @@ __author__ = 'young'
 from django import forms
 from userena.forms import SignupForm
 
+
+
 class SignupFormExtra(SignupForm):
     firstname = forms.CharField(label=(u'First name'),
                                  max_length=30,
@@ -12,6 +14,11 @@ class SignupFormExtra(SignupForm):
                                 max_length=30,
                                 required=False)
 
+    USER_CHOICES = (('member', ('Member')),        ('chef', ('Chef')),        ('Mighty', ('Both')),)
+
+    usertype = forms.ChoiceField(label=(u'User Type'),
+                                choices=USER_CHOICES,
+                                required=True)
     def save(self):
         """
         Override the save method to save the first and last name to the user
@@ -30,6 +37,7 @@ class SignupFormExtra(SignupForm):
         # Garbage in, garbage out.
         user_profile.firstname = self.cleaned_data['firstname']
         user_profile.lastname = self.cleaned_data['lastname']
+        user_profile.usertype = self.cleaned_data['usertype']
         user_profile.save()
 
         # Return the user, not the profile!

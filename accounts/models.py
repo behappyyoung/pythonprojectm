@@ -27,3 +27,4 @@ class MyProfile(UserenaBaseProfile):
 
 ##    firstname = models.CharField(_('firstname'), max_length=15, default='', help_text=_('first name'))
 ##    lastname = models.CharField(_('lastname'), max_length=15, default='', help_text=_('last name'))
+

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.views.generic.base import RedirectView
 
 from djangotest import views
-from accounts.forms import SignupFormExtra
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^(?i)polls/', include('polls.urls', namespace="polls")),
     url(r'^(?i)meals/', include('meals.urls', namespace="meals")),
     url(r'^(?i)accounts/', include('accounts.urls')),
-    url(r'^accounts/signup/$', 'userena.views.signup', {'signup_form': SignupFormExtra}),
+
     ## Added  for mugshots url
      url(r'^(?i)images/(mugshots/.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
      url(r'^(?i)images/(meals/.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
