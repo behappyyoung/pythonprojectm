@@ -9,6 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^$', login_required(userena_views.ProfileListView.as_view()), name='userena_profile_list'),
     url(r'^signup/$', 'userena.views.signup', {'signup_form': SignupFormExtra}),
-
     url(r'^', include('userena.urls')),
 )

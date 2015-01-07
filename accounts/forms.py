@@ -6,11 +6,11 @@ from userena.forms import SignupForm
 
 
 class SignupFormExtra(SignupForm):
-    firstname = forms.CharField(label=(u'First name'),
+    first_name = forms.CharField(label=(u'First name'),
                                  max_length=30,
                                  required=False)
 
-    lastname = forms.CharField(label=(u'Last name'),
+    last_name = forms.CharField(label=(u'Last name'),
                                 max_length=30,
                                 required=False)
 
@@ -35,8 +35,8 @@ class SignupFormExtra(SignupForm):
 
         # Be sure that you have validated these fields with `clean_` methods.
         # Garbage in, garbage out.
-        user_profile.firstname = self.cleaned_data['firstname']
-        user_profile.lastname = self.cleaned_data['lastname']
+        user_profile.firstname = self.cleaned_data['first_name']
+        user_profile.lastname = self.cleaned_data['last_name']
         user_profile.usertype = self.cleaned_data['usertype']
         user_profile.save()
 

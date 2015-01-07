@@ -1,11 +1,6 @@
 """
-Django settings for hellodjango project.
+Django settings for djangotest project.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,6 +21,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+SITE_ID = 1
 
 # Application definition
 
@@ -181,11 +178,9 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, '../images')
+MEDIA_URL='/images/'
 
-
-##MEDIA_ROOT = BASE_DIR
-MEDIA_ROOT = '/var/www/pythonprojectm/images/'
-MEDIA_URL='http://127.0.0.1:8000/images/'
 ############# addded for heroku ###########################
 
 # Parse database configuration from $DATABASE_URL
