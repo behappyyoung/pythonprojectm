@@ -3,35 +3,79 @@
 {% load staticfiles %}
 
 {% block title %} djanog ProjectM - Home {% endblock %}
-{% block content_title %}<h2>Home</h2>{% endblock %}
+{% block content_title %}<h2>  This is Main Page.. Meals for you .. !!  </h2>{% endblock %}
 
 {% block content %}
 
 
 <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
 
-    This is Main Page..
+        {% if meal_list %}
+        <ul>
+            {% for meal in meal_list %}
+                <li>{{ meal.meal_title }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
+                    {% if meal.photo %}
+                        <dd> <img src="/images/{{ meal.photo }}" width="200px"/></dd>
+                    {% endif %}
+                    <dt> Desc </dt>
+                    <dd> {{ meal.meal_desc}} </dd>
+                    <dt> Meal Type </dt>
+                    <dd>{{ meal.meal_type}}</dd>
+
+                    <ul>
+                    {% for dish in meal.dish_set.all %}
+                        <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
+                    {% endfor %}
+                    </ul>
+
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No meals are available.</p>
+        {% endif %}
 
     {% if user.is_authenticated %}
         logged in
-            {% if meal_list %}
-        <ul>
-        {% for meal in meal_list %}
-            <li>{{ meal.meal_title }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
 
-                <ul>
-                {% for dish in meal.dish_set.all %}
-                    <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
-                {% endfor %}
-                </ul>
-
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No meals are available.</p>
-    {% endif %}
     {% else %}
         guest
+
+
+            <form action="/Accounts/signin/" method="post">
+            {% csrf_token %}
+              <fieldset>
+
+                      <p>
+                <label for="id_identification">Email or username:</label>
+                <input class="required" id="id_identification" maxlength="75" name="identification" type="text" />
+                </p>
+
+
+
+
+
+                <p>
+                <label for="id_password">Password:</label>
+                <input class="required" id="id_password" name="password" type="password" />
+                </p>
+
+
+
+                <p class="checkbox">
+                <label for="id_remember_me"><input id="id_remember_me" name="remember_me" type="checkbox" /> Remember me for a month</label>
+                </p>
+
+
+              </fieldset>
+              <input type="submit" value="Signin" />
+              <p class="forgot-password"><a href="/accounts/password/reset/" title="Forgot your password?">Forgot your password?</a></p>
+                    <p class="forgot-password"><a href="/Accounts/signup/" title="Forgot your password?">not a member? join </a></p>
+
+            </form>
+
     {% endif %}        
+
+
+
 
 {% endblock %}

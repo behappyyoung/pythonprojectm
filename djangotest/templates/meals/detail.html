@@ -12,6 +12,11 @@
     <dd> {{ meal.meal_desc}} </dd>
     <dt> Owner </dt>
     <dd>{{ meal.owner}}</dd>
+    <dt> Meal Type </dt>
+    <dd>{{ meal.meal_type}}</dd>
+    <dt> Featured </dt>
+    <dd>{{ meal.featured}}</dd>
+
 
 
 {% for dish in meal.dish_set.all %}
