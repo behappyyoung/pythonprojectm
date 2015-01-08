@@ -29,17 +29,7 @@
 {% sitetree_breadcrumbs from "maintree"  %}
 
 
-{% if user.is_authenticated %}
-    <!-- message -->
-    {% load inbox %}
-    {% inbox_count as my_var %}
-    {% if my_var  %}
-        New message : <a href="/messages/" >{{ my_var }} </a>
-    {% else %}
-        No New Message
-    {% endif %}
 
-{% endif %}0
 </header>
 
   <div id="body">

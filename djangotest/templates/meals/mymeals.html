@@ -1,0 +1,27 @@
+{% extends 'meals/meal_base.html' %}
+
+{% block content_title %}
+
+        <h2>My Meals</h2>
+
+{% endblock %}
+
+{% block meal-content %}
+    {% if my_meal_list %}
+        <ul>
+        {% for meal in my_meal_list %}
+            <li>{{ meal.meal_title }} :: <br />
+                <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a>
+
+                <ul>
+                {% for dish in meal.dish_set.all %}
+                    <li>{{ dish.dish_title }} -- {{ dish.dish_desc }} </li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No meals are available.</p>
+    {% endif %}
+{% endblock %}

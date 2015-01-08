@@ -36,7 +36,17 @@
 
     {% if user.is_authenticated %}
         logged in
+        {% if user.is_authenticated %}
+            <!-- message -->
+            {% load inbox %}
+            {% inbox_count as my_var %}
+            {% if my_var  %}
+                New message : <a href="/messages/" >{{ my_var }} </a>
+            {% else %}
+                No New Message
+            {% endif %}
 
+        {% endif %}
 
     {% else  %} {# for Guest - not login user #}
 

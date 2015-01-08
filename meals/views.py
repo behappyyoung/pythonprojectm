@@ -6,6 +6,9 @@ from django.utils import timezone
 
 from meals.models import Meal, Dish
 
+from userena.utils import (signin_redirect, get_profile_model, get_user_model,
+                           get_user_profile)
+
 
 class IndexView(generic.ListView):
     template_name = 'meals/index.html'
@@ -56,3 +59,11 @@ class DishListView(generic.ListView):
     def get_queryset(self):
         return Dish.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
 
+class MyMeals(generic.ListView):
+    template_name = 'meals/mymeals.html'
+    context_object_name = 'my_meal_list'
+
+    def get_queryset(self):
+
+        user = get_object_or_404(get_user_model(), username__iexact=self.kwargs['username'])
+        return Meal.objects.filter(owner=user.id).order_by('-pub_date')
