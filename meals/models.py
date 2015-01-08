@@ -27,7 +27,7 @@ class Dish(models.Model):
 class Meal(models.Model):
     meal_title = models.CharField(max_length=200)
     meal_desc = models.CharField(max_length=200)
-    dish = models.ManyToManyField(Dish)
+    dish = models.ForeignKey(Dish)
     owner = models.ForeignKey(User, default=1)
     ## meal type : public, private,
     meal_type=models.CharField(max_length=20, default='public')

@@ -11,11 +11,13 @@ class MealAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['meal_title']}),
         (None,               {'fields': ['owner']}),
+        (None,               {'fields': ['dish']}),
         (None,               {'fields': ['meal_desc']}),
+        (None,               {'fields': ['meal_type']}),
         (None,               {'fields': ['photo']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
-    list_display = ('meal_title', 'meal_desc','owner', 'photo', 'pub_date', 'was_published_recently')
+
     list_filter = ['pub_date']
     search_fields = ['meal_title']
 
