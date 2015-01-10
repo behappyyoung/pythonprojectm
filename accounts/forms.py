@@ -31,7 +31,8 @@ class SignupFormExtra(SignupForm):
         # Get the profile, the `save` method above creates a profile for each
         # user because it calls the manager method `create_user`.
         # See: https://github.com/bread-and-pepper/django-userena/blob/master/userena/managers.py#L65
-        user_profile = user.get_profile()
+        ##user_profile = user.get_profile()
+        user_profile = user.userprofile
 
         # Be sure that you have validated these fields with `clean_` methods.
         # Garbage in, garbage out.
