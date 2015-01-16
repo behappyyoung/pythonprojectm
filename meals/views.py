@@ -3,11 +3,20 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import logout as Signout
+from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+
+
 
 from meals.models import Meal, Dish
+from meals.forms import AddMealForm, AddDishForm
 
-from userena.utils import (signin_redirect, get_profile_model, get_user_model,
-                           get_user_profile)
+from userena.utils import (get_profile_model, get_user_model, get_user_profile)
 
 
 class IndexView(generic.ListView):
@@ -68,78 +77,45 @@ class MyMeals(generic.ListView):
         user = get_object_or_404(get_user_model(), username__iexact=self.kwargs['username'])
         return Meal.objects.filter(owner=user.id).order_by('-pub_date')
 
+class ExtraContextTemplateView(TemplateView):
+    """ Add extra context to a simple template view """
+    extra_context = None
 
-def addmeal(request, addmeal_form=AddmealForm,
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExtraContextTemplateView, self).get_context_data(*args, **kwargs)
+        if self.extra_context:
+            context.update(self.extra_context)
+        return context
+
+    # this view is used in POST requests, e.g. signup when the form is not valid
+    post = TemplateView.get
+
+
+def addmeal(request, addmeal_form=AddMealForm,
            template_name='meals/addmeal_form.html', success_url=None,
            extra_context=None):
-    """
-    Signup of an account.
 
-    Signup requiring a username, email and password. After signup a user gets
-    an email with an activation link used to activate their account. After
-    successful signup redirects to ``success_url``.
-
-    :param signup_form:
-        Form that will be used to sign a user. Defaults to userena's
-        :class:`SignupForm`.
-
-    :param template_name:
-        String containing the template name that will be used to display the
-        signup form. Defaults to ``userena/signup_form.html``.
-
-    :param success_url:
-        String containing the URI which should be redirected to after a
-        successful signup. If not supplied will redirect to
-        ``userena_signup_complete`` view.
-
-    :param extra_context:
-        Dictionary containing variables which are added to the template
-        context. Defaults to a dictionary with a ``form`` key containing the
-        ``signup_form``.
-
-    **Context**
-
-    ``form``
-        Form supplied by ``signup_form``.
-
-    """
-    # If signup is disabled, return 403
-    if userena_settings.USERENA_DISABLE_SIGNUP:
-        raise PermissionDenied
-
-    # If no usernames are wanted and the default form is used, fallback to the
-    # default form that doesn't display to enter the username.
-    if userena_settings.USERENA_WITHOUT_USERNAMES and (signup_form == SignupForm):
-        signup_form = SignupFormOnlyEmail
-
-    form = signup_form()
-
+    context = RequestContext(request)
     if request.method == 'POST':
-        form = signup_form(request.POST, request.FILES)
+        form = addmeal_form(request.POST, request.FILES)
+        mealid = ''
         if form.is_valid():
-            user = form.save()
+            meal= form.save()
+            mealid=meal.id
+        return HttpResponseRedirect('/Meals/'+mealid)
 
-            # Send the signup complete signal
-            userena_signals.signup_complete.send(sender=None,
-                                                 user=user)
+    return render_to_response('meals/addmeal_form.html', {'form': addmeal_form}, context)
 
 
-            if success_url: redirect_to = success_url
-            else: redirect_to = reverse('userena_signup_complete',
-                                        kwargs={'username': user.username})
+def AddDish(request, adddish_form=AddDishForm):
+    # Get the context from the request.
+    context = RequestContext(request)
+    if request.method == 'POST':
+        form = adddish_form(request.POST, request.FILES)
+        if form.is_valid():
+            meal= form.save()
+            mealid=meal.id
+        return HttpResponseRedirect('/Meals/'+mealid)
 
-            # A new signed user should logout the old one.
-            if request.user.is_authenticated():
-                logout(request)
+    return render_to_response('meals/adddish_form.html', {'form': adddish_form}, context)
 
-            if (userena_settings.USERENA_SIGNIN_AFTER_SIGNUP and
-                not userena_settings.USERENA_ACTIVATION_REQUIRED):
-                user = authenticate(identification=user.email, check_password=False)
-                login(request, user)
-
-            return redirect(redirect_to)
-
-    if not extra_context: extra_context = dict()
-    extra_context['form'] = form
-    return ExtraContextTemplateView.as_view(template_name=template_name,
-                                            extra_context=extra_context)(request)

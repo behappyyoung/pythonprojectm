@@ -4,7 +4,7 @@
 <form action="" method="post">
   {% csrf_token %}
   <fieldset>
-    <legend>Add Meal</legend>
+    <legend>Add Dish</legend>
     {{ form.non_field_errors }}
     {% for field in form %}
     {{ field.errors }}
