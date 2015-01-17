@@ -12,7 +12,7 @@ from userena.models import UserenaSignup
 from userena.utils import get_profile_model, get_user_model
 
 attrs_dict = {'class': 'required'}
-NAME_RE = r'^[\.\w]+$'
+NAME_RE = r'^[\. \w]+$'
 
 class AddMealForm(forms.ModelForm):
     """
