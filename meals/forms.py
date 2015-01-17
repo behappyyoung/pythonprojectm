@@ -52,7 +52,7 @@ class AddDishForm(forms.ModelForm):
                              label=_("Desc"))
 
 
-    owner = forms.IntegerField(1)
+
     class Meta:
         model = Dish
-        fields=['dish_name',  'dish_desc','owner', 'dish_type', 'photo']
+        fields=['dish_name',  'dish_desc', 'dish_type', 'photo']

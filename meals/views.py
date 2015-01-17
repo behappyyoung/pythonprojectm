@@ -112,9 +112,12 @@ def AddDish(request, adddish_form=AddDishForm):
     context = RequestContext(request)
     if request.method == 'POST':
         form = adddish_form(request.POST, request.FILES)
+        current_user = request.user
+        form.cleaned_data['owner'] = current_user.id
         if form.is_valid():
             new_meal= form.save()
             return HttpResponseRedirect('/Meals/'+new_meal.id)
+        return render_to_response('meals/adddish_form.html', {'form': form}, context)       ## with error
 
     return render_to_response('meals/adddish_form.html', {'form': adddish_form}, context)
 
