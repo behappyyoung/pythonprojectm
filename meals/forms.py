@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate
 from meals.models import Dish, Meal
 
 
-
 from userena import settings as userena_settings
 
 from userena.models import UserenaSignup
@@ -33,10 +32,9 @@ class AddMealForm(forms.ModelForm):
     def save(self):
         meal_name, meal_desc = (self.cleaned_data['meal_name'], self.cleaned_data['meal_desc'])
 
-        new_meal = UserenaSignup.objects.create_user(meal_name,
-                                                     meal_desc,
-                                                     not userena_settings.USERENA_ACTIVATION_REQUIRED,
-                                                     userena_settings.USERENA_ACTIVATION_REQUIRED)
+        new_meal = Meal.objects.create_user(meal_name,
+                                                     meal_desc
+                                                   )
         return new_meal
 
 """
@@ -45,7 +43,7 @@ class AddDishForm(forms.ModelForm):
     """
     """
     dish_name = forms.RegexField(regex=NAME_RE,
-                                max_length=30,
+                                max_length=40,
                                 widget=forms.TextInput(attrs=attrs_dict),
                                 label=_("Name"),
                                 error_messages={'invalid': _('Dish Name must contain only letters, numbers, dots and underscores.')})
@@ -53,5 +51,8 @@ class AddDishForm(forms.ModelForm):
                                                                maxlength=75)),
                              label=_("Desc"))
 
+
+    owner = forms.IntegerField(1)
     class Meta:
         model = Dish
+        fields=['dish_name',  'dish_desc','owner', 'dish_type', 'photo']

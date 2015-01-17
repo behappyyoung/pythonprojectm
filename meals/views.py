@@ -113,9 +113,8 @@ def AddDish(request, adddish_form=AddDishForm):
     if request.method == 'POST':
         form = adddish_form(request.POST, request.FILES)
         if form.is_valid():
-            meal= form.save()
-            mealid=meal.id
-        return HttpResponseRedirect('/Meals/'+mealid)
+            new_meal= form.save()
+            return HttpResponseRedirect('/Meals/'+new_meal.id)
 
     return render_to_response('meals/adddish_form.html', {'form': adddish_form}, context)
 
