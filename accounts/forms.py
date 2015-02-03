@@ -8,13 +8,24 @@ from userena.forms import SignupForm
 class SignupFormExtra(SignupForm):
     first_name = forms.CharField(label=(u'First name'),
                                  max_length=30,
-                                 required=False)
+                                 required=True)
 
     last_name = forms.CharField(label=(u'Last name'),
                                 max_length=30,
-                                required=False)
+                                required=True)
 
-    USER_CHOICES = (('member', ('Member')),        ('chef', ('Chef')),        ('Mighty', ('Both')),)
+    address = forms.CharField(label=(u'Address'),
+                                max_length=100,
+                                required=True)
+    zipcode = forms.CharField(label=(u'Zipcode'),
+                                max_length=10,
+                                required=True)
+    phone = forms.CharField(label=(u'Phone Number'),
+                                max_length=10,
+                                required=True)
+
+
+    USER_CHOICES = (('member', ('Member')),        ('chef', ('Chef')),        ('mighty', ('Both')),)
 
     usertype = forms.ChoiceField(label=(u'User Type'),
                                 choices=USER_CHOICES,
@@ -39,6 +50,9 @@ class SignupFormExtra(SignupForm):
         user_profile.firstname = self.cleaned_data['first_name']
         user_profile.lastname = self.cleaned_data['last_name']
         user_profile.usertype = self.cleaned_data['usertype']
+        user_profile.address = self.cleaned_data['address']
+        user_profile.zipcode = self.cleaned_data['zipcode']
+        user_profile.phone = self.cleaned_data['phone']
         user_profile.save()
 
         # Return the user, not the profile!

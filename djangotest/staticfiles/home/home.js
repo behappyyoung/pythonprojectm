@@ -10,5 +10,5 @@ function slideCtrl($scope, $interval){
     $scope.quote = 1;
     $interval( function(){
         $scope.quote = ($scope.quote <  $scope.quotemax )? $scope.quote+1 : 1;
-    }, 2000);
+    }, 10000);
 }

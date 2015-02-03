@@ -29,8 +29,9 @@ class Dish(models.Model):
     photo = models.ImageField(upload_to='meals', default = '/meals/no-img.jpg')
     votes = models.IntegerField(default=0)
     votes_name = models.CharField(max_length=200,  blank=True)
-    def __str__(self):              # __unicode__ on Python 2
-        return self.dish_name
+
+    def __unicode__(self):              # __unicode__ on Python 2
+        return  u'%s' % (self.dish_name)
 
 
 class Meal(models.Model):
@@ -43,8 +44,8 @@ class Meal(models.Model):
     featured=models.BooleanField(default=False)
     pub_date = models.DateTimeField('date published', default=now)
     photo = models.ImageField(upload_to='meals', default = 'meals/no-img.jpg')
-    def __str__(self):              # __unicode__ on Python 2
-        return self.meal_name
+    def __unicode__(self):              # __unicode__ on Python 2
+        return  u'%s' % (self.meal_name)
     def was_published_recently(self):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
         ##return self.pub_date >= timezone.now() - datetime.timedelta(days=1)

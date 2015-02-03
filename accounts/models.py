@@ -8,7 +8,7 @@ from userena.models import UserenaBaseProfile
 USER_CHOICES = (
         ('member', _('Member')),
         ('chef', _('Chef')),
-        ('Mighty', _('Both')),
+        ('mighty', _('Both')),
 )
 
 
@@ -25,6 +25,8 @@ class MyProfile(UserenaBaseProfile):
                                default='member',
                                help_text=_('Choose User Type.'))
 
-##    firstname = models.CharField(_('firstname'), max_length=15, default='', help_text=_('first name'))
+    address = models.CharField(_('address'), max_length=150, default='', help_text=_('Address'))
+    phone = models.CharField(_('phone'), max_length=12, default='', help_text=_('Phone Number'))
+    zipcode = models.CharField(_('zipcode'), max_length=10, default='', help_text=_('Zipcode'))
 ##    lastname = models.CharField(_('lastname'), max_length=15, default='', help_text=_('last name'))
 

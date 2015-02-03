@@ -23,10 +23,104 @@
 <header>
 
 
-<!-- site tree -->
+<!-- site tree
+
 {% load sitetree %}
 {% sitetree_menu from "maintree" include "trunk" %}
 {% sitetree_breadcrumbs from "maintree"  %}
+
+-->
+
+    <!-- manual top menu -->
+{{  user }}{{  profile }}
+{{  profile.usertype }}
+
+
+    <ul class="nav navbar-nav navbar-fixed-top navbar-default">
+
+            <li class=" active">
+                <a href="/" >
+                    Home
+                </a>
+            </li>
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Meals
+                    <b class="caret"></b>
+                </a>
+                 <ul class="dropdown-menu" role="menu">
+
+                    <li role="presentation" >
+                        <a role="menuitem" href="/Meals" >Available Meals</a>
+                    </li>
+
+                {% if user.is_authenticated %}
+                    <li role="presentation" >
+                        <a role="menuitem" href="/meals/young/" >My Meals</a>
+                    </li>
+
+                    {% if profile.usertype == 'cook' or profile.usertype == 'mighty' %}
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Meals/Dishes" >Dishes</a>
+                        </li>
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Meals/addDish" >Add Dish</a>
+                        </li>
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Meals/Dishes" >Dishes</a>
+                        </li>
+                    {% endif %}
+
+                {% endif %}
+                </ul>
+
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Users
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                        <li role="presentation" >
+                            <a role="menuitem" href="/accounts/Provider/" >Providers</a>
+                        </li>
+
+                    {% if user.is_authenticated %}
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Accounts/signout" >Sign Out</a>
+                        </li>
+
+                        <li role="presentation" >
+                            <a role="menuitem" href="/accounts/{{ user }}/" >Profile</a>
+                        </li>
+                    {% else %}
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Accounts/signin" >Sign In</a>
+                        </li>
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Accounts/signup" >Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+
+            {% if user.is_authenticated %}
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Messages
+                    <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu" role="menu">
+
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Messages/compose" >New</a>
+                        </li>
+
+                </ul>
+            </li>
+            {% endif %}
+    </ul>
 
 
 

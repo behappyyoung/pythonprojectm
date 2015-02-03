@@ -4,24 +4,33 @@
 {% block title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
+    <style>
+        input[maxlength="100"] {
+            width : 400px;
+        }
+
+    </style>
 <form action="" method="post">
   {% csrf_token %}
   <fieldset>
     <legend>{% trans "Registration" %}</legend>
     {{ form.non_field_errors }}
+
     {% for field in form %}
+
     {{ field.errors }}
     {% comment %} Displaying checkboxes differently {% endcomment %}
-    {% if field.name == 'tos' %}
-    <p class="checkbox">
-    <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-    </p>
-    {% else %}
-    <p>
-    {{ field.label_tag }} 
-    {{ field }}
-    </p>
-    {% endif %}
+        {% if field.name == 'tos' %}
+        <div class="checkbox">
+        <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+        </div>
+        {% else %}
+        <div>
+        {{forloop.counter}}
+        {{ field.label_tag }}
+        {{ field }}
+        </div>
+        {% endif %}
     {% endfor %}
   </fieldset>
   <input type="submit" value="{% trans "Signup"%}" />

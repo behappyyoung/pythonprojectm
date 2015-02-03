@@ -28,7 +28,17 @@
                     <br />
                     <div ng-switch on="quote" ng-animate="slide" class="animate-slide-container" >
                         {% for meal in meal_list %}
-                            <div ng-switch-when="{{ meal.id }}" class="animate-slide"> <img src="/images/{{ meal.photo }}" width="200px"/></div>
+                            <div ng-switch-when="{{ meal.id }}" class="animate-slide">
+                                <div >
+                                    {{ meal.meal_name }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a>
+                                </div>
+                                <div> <img src="/images/{{ meal.photo }}" width="200px"/></div>
+                                <div>
+                                    {% for dish in meal.dishes.all %}
+                                        <li>{{ dish.dish_name }} -- {{ dish.dish_desc }} </li>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -37,26 +47,6 @@
 
 
 
-        <ul>
-            {% for meal in meal_list %}
-                <!--
-                <li>{{ meal.meal_name }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a> </li>
-                    {% if meal.photo %}
-                        <dd> <img src="/images/{{ meal.photo }}" width="200px"/></dd>
-                    {% endif %}
-                    <dt> Desc </dt>
-                    <dd> {{ meal.meal_desc}} </dd>
-                    <dt> Meal Type </dt>
-                    <dd>{{ meal.meal_type}}</dd>
-
-                    <ul>
-                    {% for dish in meal.dish_set.all %}
-                        <li>{{ dish.dish_name }} -- {{ dish.dish_desc }} </li>
-                    {% endfor %}
-                    </ul>
--->
-            {% endfor %}
-        </ul>
         {% else %}
             <p>No meals are available.</p>
         {% endif %}

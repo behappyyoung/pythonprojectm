@@ -1,9 +1,11 @@
+from __future__ import unicode_literals
 __author__ = 'young'
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import authenticate
 from meals.models import Dish, Meal
+
 
 
 from userena import settings as userena_settings
@@ -28,6 +30,7 @@ class AddMealForm(forms.ModelForm):
 
     class Meta:
         model = Meal
+        fields=['meal_name', 'meal_desc',  'meal_type', 'photo']
 """
     def save(self):
         meal_name, meal_desc = (self.cleaned_data['meal_name'], self.cleaned_data['meal_desc'])
