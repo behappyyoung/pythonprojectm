@@ -1,4 +1,5 @@
 .idea
+uwsgi.ini
 venv
 **/*.pyc
 djangotest/wsgi.py
