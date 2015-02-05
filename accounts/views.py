@@ -46,3 +46,43 @@ class ProfileListView(ListView):
 ##        logging.error(self.request.__dict__)
         queryset = profile_model.objects.get_visible_profiles(self.request.user).select_related()
         return queryset
+
+
+
+class ProviderListView(ListView):
+    """ Lists all profiles """
+    context_object_name='profile_list'
+    page=1
+    paginate_by=50
+    template_name='userena/providers_list.html'
+    extra_context=None
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ProviderListView, self).get_context_data(**kwargs)
+        try:
+            page = int(self.request.GET.get('page', None))
+        except (TypeError, ValueError):
+            page = self.page
+
+        if userena_settings.USERENA_DISABLE_PROFILE_LIST \
+           and not self.request.user.is_staff:
+            raise Http404
+
+        if not self.extra_context: self.extra_context = dict()
+
+        context['page'] = page
+        context['paginate_by'] = self.paginate_by
+        context['extra_context'] = self.extra_context
+
+        return context
+
+    def get_queryset(self):
+
+        profile_model = get_profile_model()
+        logging.error(profile_model.objects.all())
+##        logging.error(self.__dict__)
+##        logging.error(self.request.__dict__)
+        ##queryset = profile_model.objects.get_visible_profiles(self.request.user).select_related()
+        queryset = profile_model.objects.get_visible_profiles()
+        return queryset
