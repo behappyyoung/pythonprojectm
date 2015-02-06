@@ -30,3 +30,24 @@ class MyProfile(UserenaBaseProfile):
     zipcode = models.CharField(_('zipcode'), max_length=10, default='', help_text=_('Zipcode'))
 ##    lastname = models.CharField(_('lastname'), max_length=15, default='', help_text=_('last name'))
 
+    def get_chef_profiles(self, user=None):
+        """
+        Returns all the visible profiles available to this user.
+
+        For now keeps it simple by just applying the cases when a user is not
+        active, a user has it's profile closed to everyone or a user only
+        allows registered users to view their profile.
+
+        :param user:
+            A Django :class:`User` instance.
+
+        :return:
+            All profiles that are visible to this user.
+
+        """
+        profiles = self.all()
+
+        filter_kwargs = {'usertype': 'chef'}
+
+        profiles = profiles.filter(**filter_kwargs)
+        return profiles
