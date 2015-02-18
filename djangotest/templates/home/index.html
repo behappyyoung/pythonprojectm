@@ -11,6 +11,8 @@
 <script src="{%  static 'home/home.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
 
+   {# meal block #}
+    <div>
         Featured <br />
         {% if meal_list %}
 
@@ -23,21 +25,22 @@
                             <button ng-click="quote={{ meal.id }};"> {{ meal.meal_name }}</button>
                         {% endfor %}
 
-
                     </div>
-                    <br />
+
                     <div ng-switch on="quote" ng-animate="slide" class="animate-slide-container" >
                         {% for meal in meal_list %}
                             <div ng-switch-when="{{ meal.id }}" class="animate-slide">
                                 <div >
                                     {{ meal.meal_name }} ::  <a href="{%  url 'meals:detail'  meal.id %}"> {{ meal.meal_desc }}  </a>
                                 </div>
-                                <div> <img src="/images/{{ meal.photo }}" width="200px"/></div>
-                                <div>
+                                <div style="width:100%;height:500px;background-image: url('/images/{{ meal.photo }}');background-position: 0 0;background-size: 100% 100%;background-repeat: no-repeat;">
+                                    <div style="position: relative;bottom: 0;color:red;">
                                     {% for dish in meal.dishes.all %}
                                         <li>{{ dish.dish_name }} -- {{ dish.dish_desc }} </li>
                                     {% endfor %}
+                                    </div>
                                 </div>
+
                             </div>
                         {% endfor %}
                     </div>
@@ -50,8 +53,12 @@
         {% else %}
             <p>No meals are available.</p>
         {% endif %}
+    </div>
 
+    <div style="clear: both;"></div>
+    {# user block #}
 
+    <div>
 
     {% if user.is_authenticated %}
         logged in
@@ -68,11 +75,6 @@
         {% endif %}
 
     {% else  %} {# for Guest - not login user #}
-
-        <style>
-
-        </style>
-
 
 
             {# for Guest - sign in form #}
@@ -95,4 +97,5 @@
 
     {% endif %}
 
+    </div>
 {% endblock %}

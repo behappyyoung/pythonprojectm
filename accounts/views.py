@@ -82,11 +82,13 @@ class ProviderListView(ListView):
         filter_kwargs = {'usertype': 'chef'}
         profile_model = get_profile_model()
 
+        logging.error('all')
         logging.error(profile_model.objects.all())
 ##        logging.error(self.__dict__)
 ##        logging.error(self.request.__dict__)
         ##queryset = profile_model.objects.get_visible_profiles(self.request.user).select_related()
         queryset = profile_model.objects.get_visible_profiles().filter(**filter_kwargs)
 
+        logging.error('cook  - queryset')
         logging.error(queryset)
         return queryset

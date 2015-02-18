@@ -22,19 +22,9 @@
 
 <header>
 
-
-<!-- site tree
-
-{% load sitetree %}
-{% sitetree_menu from "maintree" include "trunk" %}
-{% sitetree_breadcrumbs from "maintree"  %}
-
--->
-
     <!-- manual top menu -->
-{{  user }}{{  profile }}
-{{  profile.usertype }}
-
+{{  request.session.usertype }}
+{{  request }}
 
     <ul class="nav navbar-nav navbar-fixed-top navbar-default">
 
@@ -59,15 +49,15 @@
                         <a role="menuitem" href="/meals/young/" >My Meals</a>
                     </li>
 
-                    {% if profile.usertype == 'cook' or profile.usertype == 'mighty' %}
+                    {% if request.session.usertype == 'chef' or request.session.usertype == 'mighty' %}
+                        <li role="presentation" >
+                            <a role="menuitem" href="/Meals/addMeal" >Add New Meal</a>
+                        </li>
                         <li role="presentation" >
                             <a role="menuitem" href="/Meals/Dishes" >Dishes</a>
                         </li>
                         <li role="presentation" >
                             <a role="menuitem" href="/Meals/addDish" >Add Dish</a>
-                        </li>
-                        <li role="presentation" >
-                            <a role="menuitem" href="/Meals/Dishes" >Dishes</a>
                         </li>
                     {% endif %}
 

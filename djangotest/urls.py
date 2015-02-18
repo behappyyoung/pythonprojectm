@@ -4,6 +4,7 @@ from django.conf import settings
 from django.views.generic.base import RedirectView
 
 from djangotest import views
+from accounts import views as accountviews
 
 
 urlpatterns = patterns('',
@@ -18,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^(?i)polls/', include('polls.urls', namespace="polls")),
     url(r'^(?i)meals/', include('meals.urls', namespace="meals")),
     url(r'^(?i)accounts/', include('accounts.urls')),
+    url(r'^(?i)providers/$', accountviews.ProviderListView.as_view(), name='provider_list'),
 
     ## Added  for mugshots url
      url(r'^(?i)images/(mugshots/.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
