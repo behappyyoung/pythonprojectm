@@ -2,14 +2,60 @@
 
 {% load staticfiles %}
 {% block title %} djanog ProjectM - Home {% endblock %}
-{% block content_title %}<h2>  This is Main Page..  ========== for you .. !!  </h2>{% endblock %}
+
+
+{% block content_title %}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular-animate.min.js"></script>
+    <script src="{%  static 'home/home.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
+
+
+    <div class="main-title float-left">  This is Main Page..  ========== for you .. !!  </div>
+
+    {# user block #}
+
+    <div class="float-right">
+
+    {% if user.is_authenticated %}
+        logged in
+        {% if user.is_authenticated %}
+            <!-- message -->
+            {% load inbox %}
+            {% inbox_count as my_var %}
+            {% if my_var  %}
+                New message : <a href="/messages/" >{{ my_var }} </a>
+            {% else %}
+                No New Message
+            {% endif %}
+
+        {% endif %}
+
+    {% else  %} {# for Guest - not login user #}
+
+            {# for Guest - sign in form #}
+            <form action="/Accounts/signin/" method="post">
+            {% csrf_token %}
+              <fieldset>
+                <label for="id_identification"> Username:</label>
+                <input class="required" id="id_identification" maxlength="75" name="identification" type="text" />
+                <label for="id_password">Password:</label>
+                <input class="required" id="id_password" name="password" type="password" />
+              </fieldset>
+              <input type="submit" value="Signin" />
+              <span class="forgot-password"><a href="/accounts/password/reset/" title="Forgot your password?">Forgot your password?</a></span>
+              <span class="join"> not a member? <a href="/Accounts/signup/" title="Forgot your password?"> join </a></span>
+            </form>
+
+    {% endif %}
+
+    </div>
+{% endblock %}
 
 {% block content %}
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular-animate.min.js"></script>
-<script src="{%  static 'home/home.js' %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
+
 
    {# meal block #}
     <div>
@@ -56,46 +102,5 @@
     </div>
 
     <div style="clear: both;"></div>
-    {# user block #}
 
-    <div>
-
-    {% if user.is_authenticated %}
-        logged in
-        {% if user.is_authenticated %}
-            <!-- message -->
-            {% load inbox %}
-            {% inbox_count as my_var %}
-            {% if my_var  %}
-                New message : <a href="/messages/" >{{ my_var }} </a>
-            {% else %}
-                No New Message
-            {% endif %}
-
-        {% endif %}
-
-    {% else  %} {# for Guest - not login user #}
-
-
-            {# for Guest - sign in form #}
-
-            <form action="/Accounts/signin/" method="post">
-            {% csrf_token %}
-              <fieldset>
-                <label for="id_identification"> Username:</label>
-                <input class="required" id="id_identification" maxlength="75" name="identification" type="text" />
-                <label for="id_password">Password:</label>
-                <input class="required" id="id_password" name="password" type="password" />
-                <div class="checkbox">
-                <label for="id_remember_me"><input id="id_remember_me" name="remember_me" type="checkbox" /> Remember me for a month</label>
-                </div>
-              </fieldset>
-              <input type="submit" value="Signin" />
-              <p class="forgot-password"><a href="/accounts/password/reset/" title="Forgot your password?">Forgot your password?</a></p>
-              <p class="join"> not a member? <a href="/Accounts/signup/" title="Forgot your password?"> join </a></p>
-            </form>
-
-    {% endif %}
-
-    </div>
 {% endblock %}
