@@ -2,6 +2,7 @@
 uwsgi.ini
 nginx.conf
 npm-debug.log
-venv/
+/venv
+/wvenv
 .pyc
 djangotest/wsgi.py
