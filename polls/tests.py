@@ -6,11 +6,13 @@ from django.core.urlresolvers import reverse
 
 # Create your tests here.
 
-# class QuestionMethodTests(TestCase):
-#     def test_was_published_recently_with_current_question(self):
-#         time = timezone.now()
-#         current_question = Question(pub_date=time)
-#         self.assertEqual(current_question.was_published_recently(), True)
+class QuestionMethodTests(TestCase):
+    def test_was_published_recently_with_current_question(self):
+        time = timezone.now()
+        current_question = Question(question_text='test question', pub_date=time)
+        print current_question.__dict__, current_question.was_published_recently()
+        self.assertEqual(current_question.was_published_recently(), True)
+
 #
 #     def test_was_published_recently_with_recent_question(self):
 #         """
@@ -39,6 +41,7 @@ from django.core.urlresolvers import reverse
 #         self.assertEqual(future_question.was_published_recently(), False)
 #
 
+
 def create_question(question_text, days):
     """
     Creates a question with the given `question_text` and published the
@@ -48,7 +51,6 @@ def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text,
                                    pub_date=time)
-
 
 class QuestionViewTests(TestCase):
     def test_index_view_with_no_questions(self):
@@ -67,6 +69,7 @@ class QuestionViewTests(TestCase):
         """
         create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse('polls:index'))
+        # print response.context
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
             ['<Question: Past question.>']

@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'less',
     'twitter_bootstrap',
     'djangular',
+    'news'
 )
 
 AUTHENTICATION_BACKENDS = (
