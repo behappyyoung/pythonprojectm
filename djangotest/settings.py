@@ -110,6 +110,7 @@ PIPELINE_LESS_ARGUMENTS = u'--include-path={}'.format(os.pathsep.join([bootstrap
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
+    'react.utils.pipeline.JSXCompiler',
 )
 
 ## pipe line
